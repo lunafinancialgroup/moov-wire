@@ -80,12 +80,19 @@ func (fiba *FIBeneficiaryAdvice) String() string {
 	buf.Grow(200)
 	buf.WriteString(fiba.tag)
 	buf.WriteString(fiba.AdviceCodeField())
-	buf.WriteString(strings.TrimSpace(fiba.LineOneField()) + "*")
-	buf.WriteString(strings.TrimSpace(fiba.LineTwoField()) + "*")
-	buf.WriteString(strings.TrimSpace(fiba.LineThreeField()) + "*")
-	buf.WriteString(strings.TrimSpace(fiba.LineFourField()) + "*")
-	buf.WriteString(strings.TrimSpace(fiba.LineFiveField()) + "*")
-	buf.WriteString(strings.TrimSpace(fiba.LineSixField()) + "*")
+	lines := []string{
+		strings.TrimSpace(fiba.LineOneField()),
+		strings.TrimSpace(fiba.LineTwoField()),
+		strings.TrimSpace(fiba.LineThreeField()),
+		strings.TrimSpace(fiba.LineFourField()),
+		strings.TrimSpace(fiba.LineFiveField()),
+		strings.TrimSpace(fiba.LineSixField()),
+	}
+	for i := range lines {
+		if lines[i] != "" {
+			buf.WriteString(lines[i] + "*")
+		}
+	}
 	return fiba.cleanupDelimiters(buf.String())
 }
 
