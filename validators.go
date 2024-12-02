@@ -569,7 +569,7 @@ func (v *validator) validateOptionFName(s string) error {
 	if s[1:2] != "/" {
 		return ErrOptionFName
 	}
-	if strings.TrimSpace(s[2:3]) == "" {
+	if strings.TrimSpace(s[2:]) == "" {
 		return ErrOptionFName
 	}
 	an := strings.TrimSpace(s[2:])
