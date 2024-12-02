@@ -14,6 +14,8 @@ func TestValidators__validateOptionFName(t *testing.T) {
 	v := &validator{}
 
 	require.NoError(t, v.validateOptionFName("1/SMITH JOHN"))
+	require.NoError(t, v.validateOptionFName("1/ SMITH JOHN"))
+	require.Error(t, v.validateOptionFName("1/  "))
 	require.Error(t, v.validateOptionFName("1/"))
 	require.Error(t, v.validateOptionFName("1"))
 	require.Error(t, v.validateOptionFName(""))
