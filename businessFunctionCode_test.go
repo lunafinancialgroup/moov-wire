@@ -58,6 +58,30 @@ func TestParseBusinessFunctionCodeReaderParseError(t *testing.T) {
 	require.EqualError(t, err, expected)
 }
 
+// TestParseBusinessFunctionCode3600WithCTRCOVError ensures that COV with CTR
+// is not valid
+func TestParseBusinessFunctionCode3600WithCTRCOVError(t *testing.T) {
+	var line = "{3600}CTRCOV*"
+	r := NewReader(strings.NewReader(line))
+	r.line = line
+
+	err := r.parseBusinessFunctionCode()
+
+	expected := r.parseError(fieldError("TransactionTypeCode", ErrTransactionTypeCode, "COV")).Error()
+	require.EqualError(t, err, expected)
+}
+
+// TestParseBusinessFunctionCode3600WithCTRAndNonCOV ensures that CTR
+// with non-COV transaction type is valid
+func TestParseBusinessFunctionCode3600WithCTRAndNonCOV(t *testing.T) {
+	var line = "{3600}CTRXXY*"
+	r := NewReader(strings.NewReader(line))
+	r.line = line
+
+	err := r.parseBusinessFunctionCode()
+	require.NoError(t, err)
+}
+
 // TestBusinessFunctionCodeTagError validates a BusinessFunctionCode tag
 func TestBusinessFunctionCodeTagError(t *testing.T) {
 	bfc := mockBusinessFunctionCode()

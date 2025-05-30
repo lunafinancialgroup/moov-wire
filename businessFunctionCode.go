@@ -83,7 +83,7 @@ func (bfc *BusinessFunctionCode) Validate() error {
 	if err := bfc.isBusinessFunctionCode(bfc.BusinessFunctionCode); err != nil {
 		return fieldError("BusinessFunctionCode", err, bfc.BusinessFunctionCode)
 	}
-	if err := bfc.isTransactionTypeCode(bfc.TransactionTypeCode); err != nil {
+	if err := bfc.isTransactionTypeCode(bfc.TransactionTypeCode, bfc.BusinessFunctionCode); err != nil {
 		return fieldError("TransactionTypeCode", err, bfc.TransactionTypeCode)
 	}
 	return nil
