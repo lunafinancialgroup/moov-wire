@@ -171,7 +171,13 @@ func (v *validator) isChargeDetails(code string) error {
 	return ErrChargeDetails
 }
 
-func (v *validator) isTransactionTypeCode(code string) error {
+func (v *validator) isTransactionTypeCode(code, businessFunctionCode string) error {
+	if businessFunctionCode == CustomerTransfer {
+		if code == "COV" {
+			return ErrTransactionTypeCode
+		}
+		return nil
+	}
 	switch code {
 	case
 		"", "COV":
